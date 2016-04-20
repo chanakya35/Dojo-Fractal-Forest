@@ -54,17 +54,18 @@ module FractalForest =
 //    draw x y (pi*(0.5 + 0.3)) 50. 2.
 //    draw x y (pi*(0.5 - 0.4)) 50. 2.
 
-    let rec drawFractal x y angle length width =
-         match angle with
-         | angle when angle > 1.5 -> ()
+    let rec drawFractal x y angle length width step =
+         match step with
+         | 20 -> ()
          | _ -> 
             draw x y (pi*0.5 + angle) length width
             let x1, y1 = endpoint x y (pi*(0.5 + angle)) length
-            drawFractal x1 y1 (angle + 0.2) length width          
+            drawFractal x1 y1 (angle + 0.02) length width (step + 2)          
+            drawFractal x1 y1 (angle - 0.02) length width (step + 2)          
 
-    drawFractal 250. 50. 0. 100. 4.        
+    drawFractal 250. 10. 0. 50. 4. 0        
 
-    form.ShowDialog()
+    ignore (form.ShowDialog())
 
     (* To do a nice fractal tree, using recursion is
     probably a good idea. The following link might
