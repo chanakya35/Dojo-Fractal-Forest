@@ -48,12 +48,21 @@ module FractalForest =
 
     // Now... your turn to draw
     // The trunk
-    draw 250. 50. (pi*(0.5)) 100. 4.
-    let x, y = endpoint 250. 50. (pi*(0.5)) 100.
+//    draw 250. 50. (pi*(0.5)) 100. 4.
+//    let x, y = endpoint 250. 50. (pi*(0.5)) 100.
     // first and second branches
-    draw x y (pi*(0.5 + 0.3)) 50. 2.
-    draw x y (pi*(0.5 - 0.4)) 50. 2.
+//    draw x y (pi*(0.5 + 0.3)) 50. 2.
+//    draw x y (pi*(0.5 - 0.4)) 50. 2.
 
+    let rec drawFractal x y angle length width =
+         match angle with
+         | angle when angle > 1.5 -> ()
+         | _ -> 
+            draw x y (pi*0.5 + angle) length width
+            let x1, y1 = endpoint x y (pi*(0.5 + angle)) length
+            drawFractal x1 y1 (angle + 0.2) length width          
+
+    drawFractal 250. 50. 0. 100. 4.        
 
     form.ShowDialog()
 
