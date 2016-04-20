@@ -59,9 +59,9 @@ module FractalForest =
          | 20 -> ()
          | _ -> 
             draw x y (pi*0.5 + angle) length width
-            let x1, y1 = endpoint x y (pi*(0.5 + angle)) length
-            drawFractal x1 y1 (angle + 0.02) length width (step + 2)          
-            drawFractal x1 y1 (angle - 0.02) length width (step + 2)          
+            let x1, y1 = endpoint x y (pi*0.5 + angle) length
+            drawFractal x1 y1 (angle + 0.1) length width (step + 1)          
+            drawFractal x1 y1 (angle - 0.1) length width (step + 1)          
 
     drawFractal 250. 10. 0. 50. 4. 0        
 
