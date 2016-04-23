@@ -41,7 +41,7 @@ module FractalForest =
         let pen = new Pen(brush, (single)width)
         target.DrawLine(pen, origin, destination)
 
-    let draw x y angle length width = 
+    let draw x y angle length width brush = 
         drawLine graphics brush x y angle length width
 
     let pi = Math.PI
@@ -54,16 +54,17 @@ module FractalForest =
 //    draw x y (pi*(0.5 + 0.3)) 50. 2.
 //    draw x y (pi*(0.5 - 0.4)) 50. 2.
 
-    let rec drawFractal x y angle length width step =
+    // TODO: split brush once between left and right trees
+    let rec drawFractal x y angle length width step brush =
          match step with
          | 20 -> ()
          | _ -> 
-            draw x y (pi*0.5 + angle) length width
+            draw x y (pi*0.5 + angle) length width brush
             let x1, y1 = endpoint x y (pi*0.5 + angle) length
-            drawFractal x1 y1 (angle + 0.1) length width (step + 1)          
-            drawFractal x1 y1 (angle - 0.1) length width (step + 1)          
+            drawFractal x1 y1 (angle + 0.1) (length+4.) width (step + 1) brush          
+            drawFractal x1 y1 (angle - 0.1) (length+1.) width (step + 1) brush          
 
-    drawFractal 250. 10. 0. 50. 4. 0        
+    drawFractal 250. 10. 0. 50. 1. 0 brush        
 
     ignore (form.ShowDialog())
 
