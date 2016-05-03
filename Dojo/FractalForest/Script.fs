@@ -15,7 +15,7 @@ module FractalForest =
     //more beautiful images, even if it's slower.
     //Thanks to https://twitter.com/AlexKozhemiakin for the tip!
     graphics.SmoothingMode <- System.Drawing.Drawing2D.SmoothingMode.HighQuality
-    let brush = new SolidBrush(Color.FromArgb(0, 0, 0))
+    let brush = new SolidBrush(Color.Brown)
 
     box.Image <- image
     form.Controls.Add(box) 
@@ -46,6 +46,14 @@ module FractalForest =
 
     let pi = Math.PI
 
+    type Branch = Left | Right
+
+    let nextBrush step branch brush =
+        match step, branch with
+        | 1, Right -> new SolidBrush(Color.DarkGreen)
+        | 1, Left -> new SolidBrush(Color.DarkGoldenrod)
+        | _ -> brush
+
     // Now... your turn to draw
     // The trunk
 //    draw 250. 50. (pi*(0.5)) 100. 4.
@@ -61,8 +69,9 @@ module FractalForest =
          | _ -> 
             draw x y (pi*0.5 + angle) length width brush
             let x1, y1 = endpoint x y (pi*0.5 + angle) length
-            drawFractal x1 y1 (angle + 0.1) (length+4.) width (step + 1) brush          
-            drawFractal x1 y1 (angle - 0.1) (length+1.) width (step + 1) brush          
+            drawFractal x1 y1 (angle + 0.1) (length+4.) width (step + 1) (nextBrush step Left brush)
+            drawFractal x1 y1 (angle - 0.1) (length+1.) width (step + 1) (nextBrush step Right brush)      
+
 
     drawFractal 250. 10. 0. 50. 1. 0 brush        
 
