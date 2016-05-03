@@ -49,9 +49,9 @@ module FractalForest =
     type Branch = Left | Right
 
     let nextBrush step branch brush =
-        match step, branch with
+        match step % 2, branch with
         | 1, Right -> new SolidBrush(Color.DarkGreen)
-        | 1, Left -> new SolidBrush(Color.DarkGoldenrod)
+        | 0, Left -> new SolidBrush(Color.DarkGoldenrod)
         | _ -> brush
 
     // Now... your turn to draw
@@ -69,11 +69,11 @@ module FractalForest =
          | _ -> 
             draw x y (pi*0.5 + angle) length width brush
             let x1, y1 = endpoint x y (pi*0.5 + angle) length
-            drawFractal x1 y1 (angle + 0.1) (length+4.) width (step + 1) (nextBrush step Left brush)
-            drawFractal x1 y1 (angle - 0.1) (length+1.) width (step + 1) (nextBrush step Right brush)      
+            drawFractal x1 y1 (angle + 0.1) (length/1.1) width (step + 1) (nextBrush step Left brush)
+            drawFractal x1 y1 (angle - 0.1) (length/1.1) width (step + 1) (nextBrush step Right brush)      
 
 
-    drawFractal 250. 10. 0. 50. 1. 0 brush        
+    drawFractal 250. 10. 0. 50. 2. 0 brush        
 
     ignore (form.ShowDialog())
 
