@@ -62,7 +62,6 @@ module FractalForest =
 //    draw x y (pi*(0.5 + 0.3)) 50. 2.
 //    draw x y (pi*(0.5 - 0.4)) 50. 2.
 
-    // TODO: split brush once between left and right trees
     let rec drawFractal x y angle length width step brush =
          match step with
          | 20 -> ()
@@ -73,7 +72,12 @@ module FractalForest =
             drawFractal x1 y1 (angle - 0.1) (length/1.1) width (step + 1) (nextBrush step Right brush)      
 
 
+    // left tree
+    drawFractal 100. 10. 0. 50. 2. 0 brush        
+    // center tree
     drawFractal 250. 10. 0. 50. 2. 0 brush        
+    // right tree
+    drawFractal 400. 10. 0. 50. 2. 0 brush        
 
     ignore (form.ShowDialog())
 
